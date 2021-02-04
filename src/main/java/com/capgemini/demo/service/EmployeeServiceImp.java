@@ -9,45 +9,70 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.demo.beans.Employee;
-import com.capgemini.demo.repository.EmployeeRepo;
+import com.capgemini.demo.dao.EmployeeDao;
+
 
 @Service
 public class EmployeeServiceImp implements EmployeeService{
 	
-	      @Autowired
-          EmployeeRepo employeeRepo;
+	@Autowired
+    EmployeeDao employeeDao;
+	
+	public List<Employee> getAllEmployee()
+	  {
+		  return employeeDao.findAll();
+	  }
+	  
+	  public Optional<Employee> getEmployeeById(String empId)
+	  {
+		  return employeeDao.findById(empId);
+		  
+	  }
+	  
+	  public List<Employee> getEmployeeByName(String name)
+	  {
+		  
+		 return employeeDao.getEmployeeDetailsByName(name);
+	  }
+	  
+	  public List<Employee> getEmployeeByDesignation(String designation)
+	  {
+		  
+		 return employeeDao.getEmployeeDetailsByDesignation(designation);
+	  }
+	  
+	  
+	  public List<Employee> getEmployeesBySalRange(double lower,double higher)
+	  {
+		
+		   return employeeDao.getEmployeeDetailsBySalRange(lower, higher);
+	  }
+	  
+	  public Employee addEmployee(Employee employee)
+	  {
+		  employeeDao.save(employee);
+		  return employee;
+	  }
+	  
+	  public void updateEmployee(String empId,Employee employee)
+	  {
+		  employeeDao.save(employee);
+		  
+	  }
+	  
+	  
+	  public void deleteEmployee(String empId)
+	  {
+		  employeeDao.deleteById(empId);
+	  }
+	
+	
+	  
+	 
 		
 		
 
 		
 		
-		  public List<Employee> getAllEmployee()
-		  {
-			  return employeeRepo.findAll();
-		  }
 		  
-		  public Optional<Employee> getEmployeeById(String empId)
-		  {
-			  return employeeRepo.findById(empId);
-			  
-		  }
-		  
-		  public Employee addEmployee(Employee employee)
-		  {
-			  employeeRepo.save(employee);
-			  return employee;
-		  }
-		  
-		  public void updateEmployee(String empId,Employee employee)
-		  {
-			  employeeRepo.save(employee);
-			  
-		  }
-		  
-		  
-		  public void deleteEmployee(String empId)
-		  {
-			  employeeRepo.deleteById(empId);
-		  }
-
 }
